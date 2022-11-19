@@ -57,21 +57,25 @@
                                 <table class="table table-responsive-md text-center table-hover">
                                     <thead>
                                         <tr>
-                                            <th><strong>Sl</strong></th>
+                                            @if ($id != 1)
+                                                <th><strong>Sl</strong></th>
+                                            @endif
                                             <th><strong>Image</strong></th>
                                             <th><strong>NAME</strong></th>
                                             <th><strong>Email</strong></th>
                                             @if ($id != 1)
                                                 <th><strong>Status</strong></th>
+                                                <th><strong>Action</strong></th>
                                             @endif
-                                            <th><strong>Action</strong></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($users as $user)
                                             <tr>
                                                 {{-- Serial Number --}}
-                                                <td>{{ $loop->iteration }}</td>
+                                                @if ($id != 1)
+                                                    <td>{{ $loop->iteration }}</td>
+                                                @endif
 
                                                 {{-- User Image --}}
                                                 <td>
@@ -85,8 +89,8 @@
                                                 {{-- User Email --}}
                                                 <td>{{ $user->email }}</td>
 
-                                                {{-- User Status --}}
                                                 @if ($id != 1)
+                                                    {{-- User Status --}}
                                                     <td class="status-change-toggle">
                                                         <input data-id="{{ $user->id }}" class="toggle-class"
                                                             type="checkbox" data-toggle="toggle" data-on="Active"
@@ -95,19 +99,19 @@
                                                             {{ $user->status == 1 ? 'checked' : '' }}>
 
                                                     </td>
-                                                @endif
 
-                                                {{-- Action --}}
-                                                <td>
-                                                    <form class="d-inline" action="{{ route('user.destroy', $user->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button class="btn btn-danger shadow btn-sm sharp">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
+                                                    {{-- Action --}}
+                                                    <td>
+                                                        <form class="d-inline"
+                                                            action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button class="btn btn-danger shadow btn-sm sharp">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                @endif
                                             </tr>
 
                                         @empty
@@ -118,7 +122,8 @@
                                     </tbody>
                                 </table>
 
-                                <div class="d-flex justify-content-center">
+                                {{-- Paginate --}}
+                                <div class="d-flex justify-content-center mt-5">
                                     {!! $users->links() !!}
                                 </div>
 

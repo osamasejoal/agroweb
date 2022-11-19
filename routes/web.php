@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 use App\Http\Controllers\{CustomAuthController, ForgotPasswordController, ResetPasswordController, FrontendController, HomeController, ProfileController, UserController};
 
@@ -79,4 +80,5 @@ Route::post('/your/password/change', [ProfileController::class, 'updatePass'])->
 */
 Route::resource('user', UserController::class);
 Route::get('/user/list/{id}', [UserController::class, 'view'])->name('user.view');
+// Route::get('/convert-to-json', function () {return App\Models\User::paginate(10);});
 Route::get('/user/status/change', [UserController::class, 'userStatus'])->name('user.status');

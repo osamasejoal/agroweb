@@ -3,6 +3,15 @@
 @section('main-content')
     <div class="content-body">
         <div class="container-fluid">
+            
+            {{-- Success alert --}}
+            <div class="row d-flex justify-content-center">
+                @if (session('success'))
+                    <div id="success-alert" class="alert alert-success text-center position-absolute d-block col-9" style="margin-top:-23px">
+                        {{ session('success') }}
+                    </div>
+                @endif
+            </div>
 
             {{-- BreadCrumb --}}
             <div class="row page-titles">
@@ -14,18 +23,13 @@
 
             <div class="row">
                 <div class="col-xl-12 col-lg-12 m-auto">
+
+                    {{-- Create Account Form --}}
                     <div class="card">
                         <div class="card-header">
                             <p class="m-auto text-primary h2">Create Account</p>
                         </div>
                         <div class="card-body col-xl-12 col-lg-12 col-sm-12 m-auto">
-
-                            {{-- Success alert --}}
-                            @if (session('success'))
-                                <div class="alert alert-success text-center">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
 
                             <div class="basic-form row">
 
@@ -41,8 +45,12 @@
                                             <div class="col-sm-9 col-md-8 col-lg-8">
                                                 <select name="role" id="role" class="form-control" style="font-size:18px">
                                                     <option value="" class="text-center">-- Select Account Type --</option>
-                                                    <option value="2">Editor</option>
-                                                    <option value="3">Customer</option>
+                                                    <option value="2" {{ old('role')==2?'selected':'' }}>
+                                                        Editor
+                                                    </option>
+                                                    <option value="3" {{ old('role')==3?'selected':'' }}>
+                                                        Customer
+                                                    </option>
                                                 </select>
 
                                                 @error('role')

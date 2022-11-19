@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserMail;
 use Illuminate\Support\Facades\Hash;
+use Database\Seeders\AdminSeeder;
+use Illuminate\Support\Facades\Artisan;
 
 class UserController extends Controller
 {
@@ -41,6 +43,7 @@ class UserController extends Controller
         if ($id == 1) {
             $users = User::where('role', '1')->paginate(10);
             return view('backend.user.view', compact('users', 'id'));
+
         } elseif ($id == 2) {
             $users = User::where('role', '2')->paginate(10);
             return view('backend.user.view', compact('users', 'id'));
@@ -93,14 +96,11 @@ class UserController extends Controller
     */
     public function store(Request $request)
     {
-        return "return store of add user";
-        die();
         // Validation Portion
         $request->validate([
             'role'          => 'required|integer',
             'name'          => 'required|string|max:255',
             'email'         => 'required|email|string|max:255',
-            'gender'        => 'required|integer',
         ], [
             '*.required' => 'This field is required',
             '*.integer' => "Please don't try to hack",
